@@ -1,0 +1,90 @@
+/*--------------------------------------------------|
+| dTree 2.05 | www.destroydrop.com/javascript/tree/ |
+|---------------------------------------------------|
+| Copyright (c) 2002-2003 Geir Landr?              |
+|--------------------------------------------------*/
+
+body { font-family: Arial, sans-serif; font-size: 12px; color:#484848; margin: 0; padding: 6px 10px 10px 10px; min-width: 900px;  position:relative;}
+
+.dtree {
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+	white-space: nowrap;
+}
+.dtree img {
+	border: 0px;
+	vertical-align: middle;
+}
+
+.dtree a {
+	color:#000000;
+	text-decoration: none;
+}
+.dtree a.node, .dtree a.nodeSel {
+	white-space: nowrap;
+	padding: 1px 2px 1px 2px;
+}
+.dtree a.node:hover, .dtree a.nodeSel:hover {
+	color: #ff0000;
+	text-decoration: none;
+}
+.dtree a.nodeSel {
+	color: #ff0000;
+	/*background-color: #c0d2ec;*/
+}
+.dtree .clip {
+	overflow: hidden;
+}
+.dtree .cx {
+	padding:0px; 
+	margin:0px;
+	width:16px;
+	height:12px;
+}
+
+a:link,a:visited {
+	font-size: 12px;
+	color: #333;
+	text-decoration: none;
+}
+
+#thisform {
+	display: none;
+	background: #FBE352;
+	position: absolute;
+	top: 150px;
+	left: 300px;
+	width: 400px;
+	height: 250px;
+	border: #9F7634 1px solid;
+	filter: alpha(opacity = 60);
+	font-size: 12px;
+	color: #FF0000;
+	text-align: left;
+	padding-top: 5px;
+}
+
+#thisform input {
+	border: #9F7634 1px solid;
+	width: 250px;
+}
+.dTreeNode{
+	font-size:12px;
+}
+
+	.role{
+		border:1px #f00 solid;
+		float:left;
+		width:420px;
+	}
+	.role .names{
+		border:1px #ccc solid;
+		float:left;
+		width:90px;
+		text-align:left;
+		margin:2px;
+	}
+	.tree h1 { font-size:25px; font-family:"黑体"; margin-bottom:5px;}
+					
+.tree{	margin-left:0px;	padding:15px;border:1px #E68321 solid;float:left;	width:190px;}

@@ -1,0 +1,128 @@
+/*
+ * main.css for admin
+ */
+
+
+
+
+/*
+ * #main
+ */
+#main {
+    margin: 0 10px 0 0;
+    background: #f90;
+    position: relative;
+}
+#main-frame-mask {
+    width: 100%;
+    height: 400px;
+    background: #fff;
+    position: absolute;
+    z-index: 100;
+}
+#main-frame-loading {
+    width: 24px;
+    height: 24px;
+    background: url(../../img/icon/loading.gif) no-repeat;
+    position: absolute;
+    left: 50%;
+    top:38%;
+    margin-left: -12px;
+}
+#main-frame {
+    position: absolute;
+    z-index: 99;
+}
+#frame-content {
+    width: 100%;
+}
+
+.hd-action{
+    font-size: 12px;
+}
+
+
+/*doc*/
+
+/*pagination reset*/
+.pagination{
+    *display: inline;
+    margin: 10px 0;
+}
+.pagination-smargin{
+    margin: 5px 0 0;
+}
+
+.pagination > li > a:hover,
+.pagination > li > a:focus,
+.pagination > .active > a,
+.pagination > .active > span {
+  color: #fff;
+  background-color: #5B90BE;
+}
+
+.pagination > .active > a,
+.pagination > .active > span {
+  color: #fff;
+  background-color: #5B90BE;
+  cursor: default;
+}
+
+.pager{
+    text-align: center;
+    *clear: both;
+}
+.total-docs{
+    display: inline-block;
+    vertical-align: top;
+    padding-right: 10px;
+    margin: 10px 0;
+    font-size: 12px;
+    line-height: 25px;
+}
+.total-docs-smargin{
+    margin: 5px 0;
+}
+
+
+/*table reset*/
+.table td, .table th{
+    padding: 6px 12px;
+}
+
+.doc-search{
+    margin-bottom: 10px;
+}
+.doc-search input{
+    width: 200px;
+}
+
+.hd-action a{
+    text-decoration: underline;
+}
+
+.default-form th, .default-form td{
+    padding-bottom: 10px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.default-form th{
+    padding-right: 10px;   
+    vertical-align: top;
+}
+
+.dialog-content{
+    padding: 20px;
+}
+.dialog-form{
+    margin: 20px 0 0 40px;
+}
+.dialog-cateDel-content{
+    text-align: center;
+    color: #666;
+}
+.dialog-cateDel-content p{
+    margin-bottom: 20px;
+}
+
+

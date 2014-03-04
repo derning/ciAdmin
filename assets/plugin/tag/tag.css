@@ -1,0 +1,30 @@
+/*!
+ * tag.css 
+ */
+.ui-tag-container {
+	padding: 5px 32px 5px 10px;
+	background: #ffc;
+	border: 1px #ccc solid;
+	font-size: 12px;
+	line-height: 23px;
+	height: 46px;
+	overflow: hidden;
+}
+.ui-tag-container a {
+	margin-right: 10px;
+	display: inline-block;
+}
+.ui-tag-close {
+	display: block;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: -5px;
+	top: 5px;
+	background: url(../tag/img/tag_close.png) no-repeat 50% 50%;
+	text-indent: -9999px;
+	overflow: hidden;
+}
+.ui-tag-container a:link, .ui-tag-container a:visited, .ui-tag-container a:hover {
+	color: #666;
+}
