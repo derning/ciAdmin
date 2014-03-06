@@ -1,18 +1,3 @@
-// JavaScript Document
-$(function(){
-	$(".cityDo").live('click' , function(){
-		var id = $(this).attr('id');
-		var type = $(this).attr('type');
-		var sys_type=$(this).attr('sys-type');
-		sys_type=sys_type ? sys_type : 1;
-		if(type != "drop"){
-			edit(id , type,sys_type) ;
-		}else{
-			drop(id);
-		}
-	});
-});
-
 function updateCache(type){
 	if(confirm('确认要更新缓存吗')){
 		pButton(1);
@@ -32,13 +17,14 @@ function checkForm(){
 	var sort_order 	= $.trim($("#sort_order").val()) ;
 	var is_public 	= $('input:radio[name="is_public"]:checked').val() ;
 	var is_menu	 	= $('input:radio[name="is_menu"]:checked').val() ;
+	var is_show 	= $('input:radio[name="is_show"]:checked').val();
 	if(!title){
 		alert('您还没有填写中文描述');
 		$("#title").focus();
 		return false ;
 	}	
 	
-	$.post(aUrl+"&act=edit" , {"id":id , "parent_id":parent_id , "title":title , "app1":app , "act1":act , "parameter":parameter , "sort_order":sort_order , "is_public":is_public , "is_menu":is_menu} , function(data){
+	$.post(aUrl+"&m=editOperate" , {"id":id , "parent_id":parent_id , "title":title , "app1":app , "act1":act , "parameter":parameter , "sort_order":sort_order , "is_public":is_public , "is_menu":is_menu,is_show:is_show} , function(data){
 		alert(data.msg);
 		if(data.success){
 			closeDialog();
@@ -55,32 +41,21 @@ function edit(id , type, sys_type){
 	initDialog(dataUrl , title) ;
 }
 
-function drop(id) {
-	if(confirm('只能删除无下级城市的地区，确认要删除吗')){
-		$.post(
-			aUrl+"&act=drop",
-			{ id:id },
-			function (data){
-				alert(data.msg);
-				if(data.success){
-					dropRemove(id);
-				}
-			},"json"
-		);
-	}
-}
 
-function getChilds(obj){
+function getChilds(obj,url){
     var status 	= obj.attr('status');
     var id 		= obj.attr('fieldid');
     var pid 	= obj.parent('td').parent('tr').attr("class");
     var src 	= $(obj).attr('src');
-	var path 	= libUrl+"/jqtreetable/images/" ;
+	var path 	= libUrl+"/lib/jqtreetable/images/" ;
     if(status == 'open'){
         var pr 		= $(obj).parent('td').parent('tr');
         var selfurl = aUrl + "&isChild=1";
         var sr  	= pr.clone();
         var td2 	= sr.find("td:eq(2)");
+        if(td2.html()==0){
+        	td2.html('');
+        }
         td2.prepend("<img class='preimg' src='"+path+"vertline.gif'/>")
                         .find("img[ectype=flex]")
                         .remove()
@@ -89,9 +64,7 @@ function getChilds(obj){
                         .remove();
         var img_count 	= td2.children("img").length;
         var td2html 	= td2.html();
-		
-		
-		$.post(aUrl , {"id":id} , function(data){
+		$.post(url , {"id":id} , function(data){
 			var table = "";
 			if(data){
 				var res = eval('(' + data + ')');
@@ -109,9 +82,8 @@ function getChilds(obj){
 						drop = 	"<a href='javascript:void(0);' class='cityDo' id='"+res[i].id+"' type='add'>添加</a> " ;
 					}
 					table += 	"<tr class='"+pid+" row"+id+"' id='tr_"+res[i].id+"'>" + 
-								"<td><input type='checkbox' value='"+res[i].id+"' class='checkitem' id='id_"+res[i].id+"' name='checkbox'></td>" + 
 								"<td>"+res[i].id+"</td>" + 
-								"<td class='node' style='padding-left:10px;text-align:left'>" + td2html+img + "</td>" + 
+								"<td class='node' style='padding-left:15px;text-align:left'>" + td2html+img + "</td>" + 
 								"<td>"+res[i].sort_order+"</td>" + 
 								"<td>" + drop +  
 									"<a href='javascript:void(0);' class='cityDo'  id='"+res[i].id+"' type='edit'>编辑</a> " + 

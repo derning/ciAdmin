@@ -23,7 +23,7 @@ $(function(){
 			type:"post",
 			success:function(data){
 				if(1 == data.status){
-					window.location.reload();
+					window.location.href='/';
 				}else{
 					alert(data.msg);
 					reloadCode;

@@ -5,11 +5,13 @@
  *
  */
 class Base_mod extends CI_Model{
+	private $cache;
 	public function __construct($tbl=''){
 		parent::__construct();
 		$this->load->database();
 		$this->db->cache_off();
 		$this->tableName = $tbl;
+		$this->cache = $this->cache_server();
 	}
 /**
      * 根据主键检索
@@ -82,8 +84,8 @@ class Base_mod extends CI_Model{
 	 * @param unknown $data
 	 */
 	public function doEdit($id,$data){
-		$where[$this->primaryKey()] = $id;
-        return $this->updateAll($data, $data);
+		$where['id'] = $id;
+        return $this->updateAll($data, $where);
 	}
 	/**
 	 * 更新表记录
@@ -106,5 +108,56 @@ class Base_mod extends CI_Model{
 	public function deleteAll($where = array(), $limit = NULL)
 	{
 		return $this->db->delete($this->tableName, $where, $limit);
+	}
+	/**
+	 * 根据编号删除信息
+	 * @param int $id
+	 */
+	public function deleteInfo($id){
+		$where['id'] = $id;
+		return $this->db->delete($this->tableName,$where);
+	}
+	
+	/**********************缓存相关方法****************/
+	public function getCache($key,$act='',$param=''){
+		$result = $this->cache->get($key);
+		if (!$result) {
+			if ($act!='') {
+				$result = $this->resetCache($key,$act,$param);
+			}
+		}
+		return $result;
+	}
+	
+	public function set($key,$value,$ttl=86400){
+		$this->cache->set($key,$value,$ttl);
+	}
+	public function deleteKey($key){
+		$this->cache->delete($key);
+	}
+	public function resetCache($key,$act,$param){
+		$this->deleteKey($key);
+		$act = "_cache".ucfirst($act);
+		$data = $this->$act($param);
+		$this->set($key, $data);
+		return $data;
+	}
+	/**
+	 * 设置缓存
+	 */
+	private function cache_server(){
+		include_once (FCPATH.APPPATH .'libraries/cache.php');
+		static $CS = null;
+		if ($CS == null) {
+			switch (Cache_SERVER){
+				case 'memcached':
+					$CS = new MemcacheServer(array('host'=>CACHE_HOST,'port'=>CACHE_PORT,));
+					break;
+				case 'default':
+					$CS = new PhpCacheServer();
+					$CS->set_cache_dir(TEMP."/caches");
+			}
+		}
+		return $CS;
 	}
 }

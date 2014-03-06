@@ -154,6 +154,24 @@ $(function(){
 	}
 }) ;
 
+function doDrop(url,obj){
+	if(!confirm('确定要执行删除操作吗？')){
+		return ;
+	}
+	var id = $(obj).attr("data-id");
+	$.ajax({
+		url:url,
+		data:{id:id},
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			alert(data.msg);
+			if(data.status==1){
+				$(obj).parents('tr').remove();
+			}
+		}
+	});
+}
 function closeDialog(){
 	$(".ui-dialog-close").click();	
 }
@@ -370,34 +388,7 @@ function getRecommend(){
 	return recommmendItems ;
 }
 
-//给标签框赋值
-function addTags(tag){
-	var oldTag = $.trim($("#tags").val());
-	oldTag = oldTag.replace(",,",",");
-	if(oldTag == ""){
-		$("#tags").val(tag) ;
-	}else{
-		var tagArr = oldTag.split(',');
-		var flag = false ;
-		if(tagArr.length < 10){
-			for (i=0;i<tagArr.length ;i++ ){	
-				if(tagArr[i] == tag){
-					flag = true ;
-				}
-			}
-		}else{
-			flag = true ;
-		}
-		if(flag == false){
-			var ss = oldTag.substr( (oldTag.length - 1), 1);
-			//alert(oldTag.length);
-			if(ss == ',')
-				$("#tags").val(oldTag+tag) ;
-			else
-				$("#tags").val(oldTag+","+tag) ;
-		}
-	}
-}
+
 
 /**
  * 验证url格式
@@ -434,51 +425,5 @@ function verDomainUrl(url){
 }
 
 function getCaptcha(){
-	$("#captchaCode").attr("src" , "?act=captcha&is_ajax=1&rand="+Math.random());
-}
-
-function loginOut(){
-	if(confirm('确认要退出吗')){
-		$.post( "?act=login&do=out&is_ajax=1", null , function(data){
-				f5("?act=login");				
-			},'json'
-		);
-	}
-}
-
-function pButton(type){
-	var bStr = $(".pb").attr("value");
-	if(type == 1 ){
-		$('.pb').attr("disabled" , "disabled") ;
-		$('.pb').attr("value" , bStr+"...") ;		
-	}else{
-		var bStr = bStr.replace("...","");
-		$(".pb").removeAttr("disabled"); 
-		$('.pb').attr("value" , bStr) ;	
-	}
-}
-
-function getPinyin(name){
-	$.post("?act=pinyin" , {"name":name} , function(data){
-		var py = data.pinyin;
-		$("#pinyin").val(py);
-	} , "json");	
-}
-
-
-//删除数据后的页面处理
-function dropRemove(items){
-	items = String(items);
-	var dropArr = items.split(',');
-	if(dropArr.length > 1){
-		if(dropArr.length >= 20){
-			f5('');
-			return false ;
-		}
-		for (i=0; i<dropArr.length ; i++ ){    
-        	$("#tr_"+dropArr[i]).remove();	
-    	} 
-	}else{
-		$("#tr_"+items).remove();	
-	}
+	$("#captchaCode").attr("src" , "?c=login&m=capt&is_ajax=1&rand="+Math.random());
 }

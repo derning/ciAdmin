@@ -16,27 +16,35 @@ class MY_Controller extends CI_Controller{
 			$info = $this->admin_user->getUseInfo($this->adminId);
 			$this->data['adminId'] = $this->adminId;
 			$this->data['userInfo'] = $info;
+			$c = $_GET['c'];
+			$m = $_GET['m'];
+			$this->data['c'] = $c;
+			$this->data['m'] = $m;
 		}else{
-			$this->load->view('public/header',$this->data);
-			$this->load->view('login');
-			return ;
+			  $this->load->helper('url');
+              redirect('/login/index');
 		}
 		//是否需要加载头部数据
-		if($this->input->post('is_ajax')){
+		if($this->input->get('is_ajax')){
 		
 		}else{
-			$menuInfo = $this->menu();
+			$menuInfo = $this->menu($c,$m);
 			$this->load->view('public/header',$this->data);
-			$this->data['menu'] = $menuInfo;
+			$this->data['menu'] = $menuInfo['list'];
+			$this->data['menuInfo'] = $menuInfo['curInfo'];
 			$this->load->view('public/menu',$this->data);
 		}
 		$this->menu();
 	}
 	
-	public function menu(){
+	public function menu($c='',$m=''){
 		$this->load->model('admin_operate');
 		$result = $this->admin_operate->getAllMenus();
-		return $result;
+		$result = $this->admin_operate->getAllMenus();
+		$info = $this->admin_operate->getInfoByAct($c,$m);
+		$data['list'] = $result;
+		$data['curInfo'] = $info;
+		return $data;
 	}
 	/*****************smarty相关配置************************/
 	public function init_smarty(){
@@ -55,9 +63,9 @@ class MY_Controller extends CI_Controller{
 		return self::$smarty;
 	}
 	public function display($tpl=''){
-		self::$smarty->display($tpl);
+		self::$smarty->display($tpl);;
+		
 	}
-	
 	public function assign($v,$k){
 		self::$smarty->assign($v,$k);
 	}

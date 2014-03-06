@@ -5,7 +5,9 @@ class Login extends CI_Controller
 		parent::__construct();
 		$this->load->library('session');
 	}
-	
+	public function index(){
+		$this->load->view('login');
+	}
 	public function ajaxLogin()
 	{
 		$username = trim($this->input->post('username'));

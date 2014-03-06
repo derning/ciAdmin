@@ -1,3 +1,4 @@
+<?php include_once 'public/header.php';?>
 <div class="login-form">
 <form name="loginform" id="loginform" class="form default-form" method="post" action="">
 		<table>

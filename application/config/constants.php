@@ -36,6 +36,14 @@ define('FOPEN_READ_WRITE_CREATE',				'a+b');
 define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
+//缓存文件夹
+define("TEMP", FCPATH.APPPATH .'cache');
+/**
+ * 缓存配置
+ */
+define("Cache_SERVER", 'default');
+define("CACHE_HOST","127.0.0.1");
+define("CACHE_PORT",11211);
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

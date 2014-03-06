@@ -1570,7 +1570,6 @@ class CI_DB_active_record extends CI_DB_driver {
 		}
 
 		$sql = $this->_delete($table, $this->ar_where, $this->ar_like, $this->ar_limit);
-
 		if ($reset_data)
 		{
 			$this->_reset_write();
