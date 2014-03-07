@@ -28,17 +28,20 @@ class Operate extends MY_Controller{
 			$is_public = $this->input->post("is_public");
 			$is_menu = $this->input->post("is_menu");
 			$is_show = $this->input->post("is_show");
-			
+			$sort_order = $this->input->post("sort_order");
 			$data = array("title"=>$title,"app"=>$app1,"act"=>$act1,"parameter"=>$parameter,
-						  "is_public"=>$is_public,"is_menu"=>$is_menu,"is_show"=>$is_show);
+						  "is_public"=>$is_public,"is_menu"=>$is_menu,"is_show"=>$is_show,
+						   "sort_order"=>$sort_order);
 			if ($parent_id) {
 				$data['parent_id'] = $parent_id;
 				$parentInfo = $this->admin_operate->getInfoById($parent_id);
 				$level = $parentInfo['level']+1;
 				$data['level'] = $level;
+			}else{
+				$data['level'] = 1;
+				$data['parent_id']=1;
 			}
 			if (!$id) {
-				
 				$res = $this->admin_operate->addData($data);
 				$msg = "添加";
 			}else{
@@ -54,6 +57,9 @@ class Operate extends MY_Controller{
 			exit();
 		}
 		$info = $this->admin_operate->getInfoById($id);
+		if(!$parent_id && $id){
+			$parent_id = $info['parent_id'];
+		}
 		$data['info'] = $info;
 		$parent_info = $this->admin_operate->getInfoById($parent_id);
 		$data['parent_info'] = $parent_info;
@@ -71,6 +77,22 @@ class Operate extends MY_Controller{
 		echo json_encode(array_values( $array ));
 		exit;
 			
+	}
+	/**
+	 * 修改排序
+	 */
+	public function ml(){
+		$id = $this->input->get('id');
+		$val = $this->input->get("value");
+		$data = array('sort_order'=>$val);
+		$res = $this->admin_operate->editData($id,$data);
+		if ($res) {
+			$result = array("status"=>1,"msg"=>"修改成功");
+		}else {
+			$result = array("status"=>-1,"msg"=>"修改失败");
+		}
+		echo json_encode($result);
+		exit();
 	}
 	/**
 	 * 删除方法
