@@ -10,8 +10,9 @@ class Admin_operate extends Base_mod{
 	 * @return array
 	 */
 	public function getInfoById($id){
-		$datas = $this->getAllMenus($id);
-		return $datas[$id];
+		$where['id'] = $id;
+		$info = $this->getRow($where);
+		return $info;
 	}
 	/**
 	 * 根据父级编号获取信息
@@ -29,7 +30,6 @@ class Admin_operate extends Base_mod{
 	 */
 	public function getAllMenus(){
 		$key = "admin_operate_list";
-		$this->deleteKey($key);
 		$result = $this->getCache($key,"getMenus");
 		return $result;
 	}
@@ -88,7 +88,7 @@ class Admin_operate extends Base_mod{
 	 * @return array
 	 */
 	public function _cacheGetMenus($key){
-		$query['where'] = array('parent_id'=>1,'is_menu'=>1,'is_show'=>1);
+		$query['where'] = array('parent_id'=>1,'is_menu'=>1);
 		$query['order_by'] = "sort_order asc";
 		$data = $this->getData($query);
 		$result = array();

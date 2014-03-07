@@ -45,5 +45,6 @@ define("Cache_SERVER", 'default');
 define("CACHE_HOST","127.0.0.1");
 define("CACHE_PORT",11211);
 
+define("PER_PAGE",20);
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

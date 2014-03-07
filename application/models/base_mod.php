@@ -30,7 +30,8 @@ class Base_mod extends CI_Model{
 	 * 根据条件获取单条记录
 	 * @param array $where
 	 */
-	public function getRow($where){
+	public function getRow($where,$field="*"){
+		$this->db->select($field);
 		$query = $this->db->from($this->tableName)->where($where)->limit(1)->get();
 		return $query->row_array();
 	}
@@ -53,12 +54,29 @@ class Base_mod extends CI_Model{
 				$this->db->order_by($order_by);
 			}
 		}
-		$limit = $query['limit'];
-		if($limit){
-			$this->db->limit($limit);
+		$num = $query['per_page'];
+		if($num){
+			$this->db->limit($num,$query['limit']);
 		}
 		$query = $this->db->get();
 		return $query->result_array();
+	}
+	
+	public function getPageData($query,$per_page=PER_PAGE){
+		$where = $query['where'];
+		$query['per_page'] = $per_page;
+		$total = $this->count($where);
+		$data = $this->getData($query);
+		//加载分类类
+		$this->load->library('pagination');
+		$config['base_url'] = $this->config->item('base_url').'?c='.APP.'&m='.ACT;
+		$config['total_rows'] = $total;
+		$config['per_page'] = $per_page;
+		$config['uri_segment'] = '4';//设为页面的参数，如果不添加这个参数分页用不了
+		$this->pagination->initialize($config);
+		$html = $this->pagination->create_links();
+		$result = array("list"=>$data,"html"=>$html);
+		return $result;
 	}
 	/**
 	 * 统计满足条件的总数
@@ -68,7 +86,11 @@ class Base_mod extends CI_Model{
 	 */
 	public function count($where = array())
 	{
-		return $this->db->from($this->tableName)->where($where)->count_all_results();
+		$this->db->from($this->tableName);
+		if ($where) {
+			$this->db->where($where);
+		}
+		return $this->db->count_all_results();
 	}
 	/**
 	 * 添加数据

@@ -21,9 +21,6 @@
 				<tr id="tr_<?=$lt['id']?>">
 					<td><?=$lt['id']?></td>
 					<td class="node" style="padding-left:10px;text-align:left">
-					<img src="<?=$base_url?>/assets/js/lib/jqtreetable/images/tv-expandable.gif" ectype="flex" status="open" fieldid="<?=$lt['id']?>" onClick="getChilds($(this),'?c=operate&m=getChildInfo')">
-					<span class="node_name">&nbsp;&nbsp;<?=$lt['title']?></span>
-				
 				</td>
 					<td><span ectype="inline_edit" fieldname="sort_order" fieldid="<?=$lt['id']?>" datatype="pint" maxvalue="255" title="单击可以编辑" class="editable" style="display: inline;"><?=$lt['sort_order']?></span></td>
 					<td>

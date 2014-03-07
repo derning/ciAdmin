@@ -1,12 +1,21 @@
-function updateCache(type){
-	if(confirm('确认要更新缓存吗')){
-		pButton(1);
-		$.post(aUrl+"&act=edit" , {"action":"updateCache","type":type} , function(data){
-			alert(data.msg);
-			pButton(0);
-		} , 'json');
-	}
-}
+$(function(){
+	$('.cityDo').live("click",function(){
+		var type = $(this).attr("type"),
+			id = $(this).attr("id"),title='';
+		if('edit' == type){
+			title = '编辑操作';
+		}else if("add" == type){
+			title = '添加操作';
+		}else {
+			
+			doDrop('?c=operate&m=delete',this);
+			return;
+		}
+		var url = "?c=operate&m=editOperate&id="+id+"&doType="+type+"&height=600&width=800&is_ajax=1" ;
+		$.dialog.dialogShow(url,title);
+	})
+	
+})
 function checkForm(){
 	var id = $("#id").val();
 	var parent_id 	= $.trim($("#parent_id").val()) ;
@@ -26,8 +35,8 @@ function checkForm(){
 	
 	$.post(aUrl+"&m=editOperate" , {"id":id , "parent_id":parent_id , "title":title , "app1":app , "act1":act , "parameter":parameter , "sort_order":sort_order , "is_public":is_public , "is_menu":is_menu,is_show:is_show} , function(data){
 		alert(data.msg);
-		if(data.success){
-			closeDialog();
+		if(data.status){
+			$.dialog.dialogClose();
 			return false ;
 		}
 	} , 'json');
@@ -53,9 +62,7 @@ function getChilds(obj,url){
         var selfurl = aUrl + "&isChild=1";
         var sr  	= pr.clone();
         var td2 	= sr.find("td:eq(2)");
-        if(td2.html()==0){
-        	td2.html('');
-        }
+        td2.html('');
         td2.prepend("<img class='preimg' src='"+path+"vertline.gif'/>")
                         .find("img[ectype=flex]")
                         .remove()
@@ -84,10 +91,10 @@ function getChilds(obj,url){
 					table += 	"<tr class='"+pid+" row"+id+"' id='tr_"+res[i].id+"'>" + 
 								"<td>"+res[i].id+"</td>" + 
 								"<td class='node' style='padding-left:15px;text-align:left'>" + td2html+img + "</td>" + 
-								"<td>"+res[i].sort_order+"</td>" + 
+								"<td><span ectype='inline_edit' fieldname='sort_order' fieldid='"+res[i].id+"' datatype='pint' maxvalue='255' title='单击可以编辑' class='editable' style='display: inline;'>"+res[i].sort_order+"</span></td>" + 
 								"<td>" + drop +  
 									"<a href='javascript:void(0);' class='cityDo'  id='"+res[i].id+"' type='edit'>编辑</a> " + 
-									"<a href='javascript:void(0);' class='cityDo'  id='"+res[i].id+"' type='drop'>删除</a> " + 
+									"<a href='javascript:void(0);' class='cityDo'  data-id='"+res[i].id+"' type='drop'>删除</a> " + 
 								"</td>" + 
 								
 								"</tr>";

@@ -5,7 +5,7 @@
             <a href="javascript:void(0)" class="nav-link"><?php echo $m['title'];?><i class="arrow"></i></a>
             <ul class="sub-nav">
             	<?php foreach ($m['list'] as $list):?>
-                <li class="cur"><a href="?c=<?php echo $list['app']?>&m=<?php echo $list['act'];?>" class="sub-nav-link"><?php echo $list['title'];?></a></li>
+                <li <?php if($list['app']==$c):?>class="cur"<?php endif;?>><a href="?c=<?php echo $list['app']?>&m=<?php echo $list['act'];?>" class="sub-nav-link"><?php echo $list['title'];?></a></li>
                 <?php endforeach;?>
             </ul>
         </li>

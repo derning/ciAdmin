@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="<?php echo $base_url;?>/assets/css/admin/main.css">
     <script type="text/javascript">
 		var aUrl = "?c=<?=$c?>",
+			app = "<?=$c?>",
 			libUrl = "<?=$base_url?>/assets/js";
     </script>
 </head>

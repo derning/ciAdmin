@@ -18,6 +18,8 @@ class MY_Controller extends CI_Controller{
 			$this->data['userInfo'] = $info;
 			$c = $_GET['c'];
 			$m = $_GET['m'];
+			define("APP", $c);
+			define("ACT", $m);
 			$this->data['c'] = $c;
 			$this->data['m'] = $m;
 		}else{
