@@ -13,18 +13,18 @@
 	
 	<link href="<?=$base_url?>/assets/js/lib/tree/tree.css" type="text/css"  rel="stylesheet" />
 	<script type="text/javascript" src="<?=$base_url?>/assets/js/lib/tree/tree_edit.js"></script>
-	<script>var haveIds = "";</script>
+	<script>var haveIds = "<?=$havaIds?>";</script>
 </head>
 <body style="min-width: 200px;">
 
 <div class="dialog-content">
 	<form name="form" id="searchForm" class="mb10" style="margin-top:10px;" onSubmit="return checkForm();">
-		<input type="hidden" name="type" id="type" value="{$type}">
-		<input type="hidden" name="type_id" id="type_id" value="{$type_id}">
+		<input type="hidden" name="type" id="type" value="<?=$type?>">
+		<input type="hidden" name="type_id" id="type_id" value="<?=$type_id?>">
 			<table style="width:370px;" >
 				<tr>
 					<td>
-						<button type="submit" class="btn btn-primary btn-small" onClick="return checkForm();">提交</button>
+						<button type="submit" class="btn btn-primary btn-small" onClick="return checkRomForm();">提交</button>
 						<button type="button" class="btn btn-primary btn-small" onClick="checkAll(1);">全选</button>
 						<button type="button" class="btn btn-primary btn-small" onClick="checkAll(0);">取消</button>
 					</td>
@@ -42,7 +42,7 @@
 						 * @author zhangxiang 10-09-02
 						 */
 						function showTree(){ 
-							d = new dTree('d',TREE_URL,'searchForm');
+							d = new dTree('d',TREE_URL,'MenuForm');
 							d.config.allowit = true;
 							<?php foreach($menus as $menu):?>
 							<?php if($menu['is_public']==2):?>

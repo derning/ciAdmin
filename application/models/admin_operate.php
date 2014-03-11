@@ -20,7 +20,9 @@ class Admin_operate extends Base_mod{
 	 * @return array
 	 */
 	public function getMenusByParentId($parent_id=1){
-		$where['where'] = array("parent_id"=>$parent_id);
+		if ($parent_id) {
+			$where['where'] = array("parent_id"=>$parent_id);;
+		}
 		$data = $this->getData($where);
 		return $data;
 	}

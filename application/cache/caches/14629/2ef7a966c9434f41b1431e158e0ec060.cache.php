@@ -1,7 +1,7 @@
 <?php 
 /**
 * @Create by dongyg PhpCacheSever 
- * @Time:2014-03-07 08:05:09
+ * @Time:2014-03-11 08:18:00
  */
 
 if(filemtime(__FILE__) + 86400 < time())return false;

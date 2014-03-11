@@ -69,7 +69,7 @@ function checkAll(state) {
 	}
 }
 
-function checkForm(){
+function checkRomForm(){
 	var ids = '' ;
 	$(".cx").each(function(){
 		if($(this).attr('checked')){
@@ -89,11 +89,10 @@ function checkForm(){
 	
 	var type = $("#type").val();
 	var type_id = $("#type_id").val();
-	
-	$.post( aUrl , { "ids":ids , "type":type , "type_id":type_id} ,
+	$.post( '?c=adminRole&m=editAdminRole' , { "ids":ids , "type":type , "type_id":type_id} ,
 		function(data){
 			alert(data.msg);
-			if(data.success){
+			if(data.status){
 				parent.closeDialog();
 			}
 		},'json'

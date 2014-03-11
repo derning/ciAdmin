@@ -51,8 +51,45 @@ class AdminRole extends MY_Controller{
 	 */
 	public function editAdminRole(){
 		$this->load->model('admin_operate');
-		$list = $this->admin_operate->getAllMenus();
+		$this->load->model("admin_rom");
+		if ($_POST) {
+			$type = $this->input->post("type");
+			$type_id = $this->input->post("type_id");
+			$ids = $this->input->post('ids');
+			if ($ids) {
+				$idArr = explode(",", $ids);
+				//先删除所有的值，再添加
+				$this->admin_rom->deleteRomByTypeId($type_id,$type);
+				foreach ($idArr as $id){
+					$data = array("type"=>$type,"type_id"=>$type_id,"operate_id"=>$id,'add_user'=>$this->adminId);
+					$this->admin_rom->addData($data);
+				}
+			}
+			$result = array('status'=>1,"msg"=>"操作成功");
+			echo json_encode($result);
+			exit();
+		}
+		$type = $this->input->get('type');
+		$type = $type ? $type : 1;
+		if (1 == $type) {
+			$type_id = $this->input->get('id');
+		}else {
+			$type_id = $this->adminId;
+		}
+		$data['type'] = $type;
+		$data['type_id'] = $type_id;
+		$list = $this->admin_operate->getMenusByParentId(0);
 		$data['menus'] = $list;
+		//获取该角色已有的权限
+		$roms = $this->admin_rom->getListByTypeId($type_id,$type);
+		$havaIds = '';
+		if ($roms) {
+			foreach ($roms as $rm){
+				$havaIds.=$rm['operate_id'].',';
+			}
+			$havaIds = rtrim($havaIds,",");
+			$data['havaIds'] = $havaIds;
+		}
 		$this->load->view('adminRole/admin_roles' , $data);
 	}
 	/**

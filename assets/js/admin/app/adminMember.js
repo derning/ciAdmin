@@ -7,16 +7,6 @@ function edit(){
 	initDialog(dataUrl , title) ;
 }
 **/
-function edit(id){
-    var heigth=300;
-    var title="添加会员";
-   if(id>0){
-       heigth=350;
-       title="编辑会员";
-   }
-	var dataUrl = "?app="+APP+"&act=edit&id="+id+"&height="+heigth+"&width=450";;
-	initDialog(dataUrl,title) ;
-}
 
 //用户与角色关联的模板加载
 function rmr(adminId){
@@ -25,7 +15,7 @@ function rmr(adminId){
 	initDialog(dataUrl , title) ;
 }
 //检查快速添加用户的表单
-function checkForm(){
+function checkUserForm(){
 	var id          = $.trim($("#id").val()) ;
     var username 	= $.trim($("#username").val()) ;
     var password 	= $.trim($("#password").val()) ;
