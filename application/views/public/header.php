@@ -24,10 +24,7 @@
     	<?php if($adminId > 0):?>
         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><img width="36" height="36" src="<?php echo $base_url;?>/assets/img/noavatar.png" />技术部/<?php echo $userInfo['username']?><b class="icon icon-caret-down"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="/user/index.php">个人中心</a></li>
-            <li><a href="/user/info.php">查看个人信息</a></li>
-            <li><a href="/user/password.php">修改密码</a></li>
-            <li><a href="/login/loginOut/">退出</a></li>
+            <li><a href="?c=login&m=logingOut">退出</a></li>
         </ul>
         <?php endif; ?>
     </div> 

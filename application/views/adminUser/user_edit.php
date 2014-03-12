@@ -9,7 +9,7 @@
 			  	</tr>
 			  	<tr>
 				  <th>用户密码：</th>
-				  <td><input placeholder="用户密码" id="password" name="password" type="text" class="txt span3" value=""></td>
+				  <td><input placeholder="用户密码" id="password" name="password" type="password" class="txt span3" value=""></td>
 			  	</tr>
 				
 				<tr>

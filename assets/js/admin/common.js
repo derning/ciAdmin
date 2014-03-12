@@ -88,6 +88,18 @@
 		}
 	});
 	
+	//checkbox全选
+	$('.check-all').live('click',function(){
+		$('.chk-list').each(function(){
+			if($(this).attr('checked')){
+				$(this).attr('checked',false);
+			}else{
+				$(this).attr('checked',true);
+			}
+		});
+		
+	});
+	
 }(jQuery));
  
 /*排序规则*/

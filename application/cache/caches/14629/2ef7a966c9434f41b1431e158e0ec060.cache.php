@@ -1,7 +1,7 @@
 <?php 
 /**
 * @Create by dongyg PhpCacheSever 
- * @Time:2014-03-11 08:18:00
+ * @Time:2014-03-12 07:18:49
  */
 
 if(filemtime(__FILE__) + 86400 < time())return false;
@@ -68,24 +68,6 @@ return array (
         'add_time' => '1394160879',
         'sort_order' => '4',
       ),
-    ),
-  ),
-  6 => 
-  array (
-    'id' => '6',
-    'parent_id' => '1',
-    'is_menu' => '1',
-    'is_public' => '2',
-    'is_show' => '1',
-    'level' => '2',
-    'title' => '会员列表1',
-    'app' => '',
-    'act' => '',
-    'parameter' => '',
-    'add_time' => '1394159000',
-    'sort_order' => '2',
-    'list' => 
-    array (
     ),
   ),
 );

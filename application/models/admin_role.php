@@ -32,6 +32,15 @@ class Admin_role extends Base_mod{
 		return $result;
 	}
 	/**
+	 * 获取所有的角色
+	 * @return array
+	 */
+	public function getAllRoles(){
+		$query['order_by'] = "id desc";
+		$data = $this->getData($query);
+		return $data;
+	}
+	/**
 	 * 编辑信息
 	 * @param  $id
 	 * @param  $data

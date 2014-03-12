@@ -35,6 +35,7 @@ class Admin_operate extends Base_mod{
 		$result = $this->getCache($key,"getMenus");
 		return $result;
 	}
+
 	/**
 	 * 根据控制器名称和方法明获取数据
 	 * @param string $c
@@ -81,7 +82,10 @@ class Admin_operate extends Base_mod{
 	 * @param int $id
 	 */
 	public function deleteData($id){
-		return $this->deleteInfo($id);
+		$res = $this->deleteInfo($id);
+		if ($res) {
+			$this->resetMenusCache("admin_operate_list","getMenus");
+		}
 	}
 	
 	/**

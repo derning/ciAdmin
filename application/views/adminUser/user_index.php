@@ -24,7 +24,7 @@
 					<td><?=date("Y-m-d ",$lt['add_time'])?></td>
 					<td>
 						<a href="javascript:void(0);" data-url="?c=adminUser&m=editUser&height=600&width=700&animate=false&is_ajax=1&id=<?=$lt['id']?>" data-title="编辑菜单" class="dialog">编辑</a> 
-						<a href="javascript:void(0);" >角色</a></td>
+						<a href="javascript:void(0);" data-url="?c=adminUser&m=editUserRole&height=600&width=700&is_ajax=1&user_id=<?=$lt['id']?>" data-title="角色" class="dialog">角色</a></td>
 				</tr>
 			<?php endforeach;?>
 			</tbody>

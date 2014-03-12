@@ -36,13 +36,25 @@ class MY_Controller extends CI_Controller{
 			$this->data['menuInfo'] = $menuInfo['curInfo'];
 			$this->load->view('public/menu',$this->data);
 		}
-		$this->menu();
 	}
 	
 	public function menu($c='',$m=''){
 		$this->load->model('admin_operate');
-		$result = $this->admin_operate->getAllMenus();
-		$result = $this->admin_operate->getAllMenus();
+		$this->load->model('admin_ror');
+		$operateIds = $this->admin_ror->getInfoByUserId($this->adminId);
+		$result = $this->admin_operate->getAllMenus($operateIds);
+		foreach ($result as $key=>&$rs){
+			if (!in_array($rs['id'], $operateIds)) {
+				unset($result[$key]);
+			}
+			if($rs['list']){
+				foreach ($rs['list'] as $k=>$lt){
+					if (!in_array($lt['id'], $operateIds)) {
+						unset($rs['list'][$k]);
+					}
+				}
+			}
+		}
 		$info = $this->admin_operate->getInfoByAct($c,$m);
 		$data['list'] = $result;
 		$data['curInfo'] = $info;

@@ -19,6 +19,17 @@ class Admin_rom extends Base_mod{
 		$data = $this->getData($query);
 		return $data;
 	}
+	
+	public function getOperateByRoleIds($roles,$type=1){
+		if (is_array($roles)) {
+			$rol = implode(",", $roles);
+		}else {
+			$rol = $roles;
+		}
+		$query['where'] = "type_id in ({$rol}) AND type={$type}";
+		$result = $this->getData($query);
+		return $result;
+	}
 	/**
 	 * 获取某个信息是否已经存在
 	 * @param  $operate_id

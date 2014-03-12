@@ -9,6 +9,16 @@ class Admin_user extends Base_mod
 		return $info;
 	}
 	/**
+	 * 根据名称获取数据
+	 * @param string $username
+	 * @return array
+	 */
+	public function getInfoByUserName($username){
+		$where['username'] = $username;
+		$info = $this->getRow($where);
+		return $info;
+	}
+	/**
 	 * 获取用户列表
 	 * @param  $where
 	 * @param  $p
@@ -33,7 +43,10 @@ class Admin_user extends Base_mod
 	}
 	function insert_entry($data)
 	{
-		$data['password'] = md5($data['password']);
+		$info = $this->getInfoByUserName($data['username']);
+		if ($info) {
+			return -1;
+		}
 		$data['add_time'] = time();
 		$res = $this->doInsert($data);
 		return $res;

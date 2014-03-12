@@ -1,47 +1,57 @@
-// JavaScript Document
-//添加用户
-/*
-function edit(){
-	var dataUrl = "?app="+APP+"&act=edit&height=350&width=450" ;
-	var title = "快速添加会员" ;
-	initDialog(dataUrl , title) ;
-}
-**/
-
-//用户与角色关联的模板加载
-function rmr(adminId){
-	var dataUrl = "?app=adminRmr&memberId="+adminId+"&height=400&width=700&type=url" ;
-	var title = "角色设置" ;
-	initDialog(dataUrl , title) ;
-}
-//检查快速添加用户的表单
 function checkUserForm(){
-	var id          = $.trim($("#id").val()) ;
-    var username 	= $.trim($("#username").val()) ;
-    var password 	= $.trim($("#password").val()) ;
-    var email 		= $.trim($("#email").val()) ;
-    var mobile      = $.trim($("#mobile").val());
-    var department_id  = $.trim($("#department_id").val());
-	if (!username){
-		alert('您还没有填写用户名');
-		$("#username").focus();
+	var username = $("#username").val(),
+		password = $("#password").val(),
+		id = $("#id").val();
+	if(''==username){
+		alert('用户名不能为空');
 		return false;
 	}
-    if (department_id==0) {
-        alert('请选择所在部门');
-        return false;
-    }
-	pButton(1);
-	$.post(aUrl+"&act=edit" , {"id":id , "username":username , "password":password,"department_id":department_id, "email":email,"state":1} , function(data){
-		alert(data.msg);
-		if(data.success){
-			parent.f5('');
-		}else{
-			pButton(2);
+	if(''==password){
+		alert('密码不能为空');
+		return false;
+	}
+	$.ajax({
+		url:"?c=adminUser&m=editUser",
+		data:{username:username,password:password,id:id},
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			alert(data.msg)
+			if(1==data.status){
+				window.location.reload();
+			}
 		}
-	} , 'json');
+	});
 	
-	return false ;
+	return false;
+}
+function checkUserRoleForm(){
+	var user_id = $("#id").val(),
+		role_ids = '';
+	$('.chk-list').each(function(){
+		if($(this).attr("checked")){
+			role_ids+=$(this).val()+",";
+		}
+	});
+	if(''==role_ids){
+		alert('请选择角色');
+		return false;
+	}
+	$.ajax({
+		url:"?c=adminUser&m=editUserRole",
+		data:{user_id:user_id,role_ids:role_ids},
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			alert(data.msg);
+			if(data.status==1){
+				$.dialog.dialogClose();
+			}else{
+				
+			}
+		}
+	});
+	return false;
 }
 
 //人员密码初始化
