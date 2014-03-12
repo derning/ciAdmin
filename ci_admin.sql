@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2014-03-11 10:12:26
+-- 生成日期: 2014-03-12 08:22:34
 -- 服务器版本: 5.5.34
 -- PHP 版本: 5.4.22
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `ci_admin_operate` (
   `add_time` int(11) NOT NULL,
   `sort_order` smallint(9) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
 
 --
 -- 转存表中的数据 `ci_admin_operate`
@@ -50,7 +50,6 @@ INSERT INTO `ci_admin_operate` (`id`, `parent_id`, `is_menu`, `is_public`, `is_s
 (1, 0, 1, 2, 2, 1, '后台管理', '', '', '', 0, 0),
 (2, 1, 1, 2, 1, 2, '系统配置', '', '', '', 0, 0),
 (3, 2, 1, 2, 1, 3, '操作管理', 'operate', 'index', '', 1394085126, 1),
-(6, 1, 1, 2, 1, 2, '会员列表1', '', '', '', 1394159000, 2),
 (7, 2, 1, 2, 1, 3, '用户列表', 'adminUser', 'index', '', 1394160879, 4),
 (8, 2, 1, 2, 1, 3, '系统角色', 'adminRole', 'index', '', 1394161652, 2);
 
@@ -90,15 +89,42 @@ CREATE TABLE IF NOT EXISTS `ci_admin_rom` (
   `add_user` int(11) unsigned NOT NULL COMMENT '添加用户',
   `add_time` int(11) unsigned NOT NULL COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=10 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- 转存表中的数据 `ci_admin_rom`
 --
 
 INSERT INTO `ci_admin_rom` (`id`, `type`, `type_id`, `operate_id`, `add_user`, `add_time`) VALUES
-(9, 1, 1, 8, 1, 1394525992),
-(8, 1, 1, 2, 1, 1394525992);
+(13, 1, 1, 8, 1, 1394605170),
+(12, 1, 1, 7, 1, 1394605170),
+(11, 1, 1, 3, 1, 1394605170),
+(10, 1, 1, 2, 1, 1394605170),
+(14, 1, 4, 2, 1, 1394605180),
+(15, 1, 4, 7, 1, 1394605180);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ci_admin_ror`
+--
+
+CREATE TABLE IF NOT EXISTS `ci_admin_ror` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL COMMENT '用户编号',
+  `role_id` mediumint(5) NOT NULL COMMENT '角色编号',
+  `add_time` int(11) NOT NULL COMMENT '添加时间',
+  `add_user` int(11) NOT NULL COMMENT '添加人',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- 转存表中的数据 `ci_admin_ror`
+--
+
+INSERT INTO `ci_admin_ror` (`id`, `user_id`, `role_id`, `add_time`, `add_user`) VALUES
+(5, 3, 4, 1394606834, 3),
+(4, 1, 1, 1394604929, 1);
 
 -- --------------------------------------------------------
 
@@ -114,14 +140,17 @@ CREATE TABLE IF NOT EXISTS `ci_admin_user` (
   `add_time` int(11) unsigned NOT NULL COMMENT '添加时间',
   `phone` varchar(11) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT '联系电话',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `ci_admin_user`
 --
 
 INSERT INTO `ci_admin_user` (`id`, `username`, `password`, `sex`, `add_time`, `phone`) VALUES
-(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', NULL, 0, '');
+(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', NULL, 0, ''),
+(2, 'test', '098f6bcd4621d373cade4e832627b4f6', NULL, 1394605898, ''),
+(3, 'test2', 'ad0234829205b9033196ba818f7a872b', NULL, 1394605915, ''),
+(4, 'test3', '8ad8757baa8564dc136c1e07507f4a98', NULL, 1394605932, '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
